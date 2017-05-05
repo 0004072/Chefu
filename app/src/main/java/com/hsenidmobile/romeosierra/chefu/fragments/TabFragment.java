@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import com.hsenidmobile.romeosierra.chefu.R;
 import com.hsenidmobile.romeosierra.chefu.tasks.FetchDataAsyncTask;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 /**
  * Created by kanchana on 5/3/17.

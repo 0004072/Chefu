@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.hsenidmobile.romeosierra.chefu.R;
 import com.hsenidmobile.romeosierra.chefu.model.FoodItem;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -19,12 +21,17 @@ import java.util.ArrayList;
 
 public class ImageAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<FoodItem> foodItems; // TODO: 5/3/17 replace with the result of data fetching from API
+    private ArrayList<FoodItem> foodItems;
+    private DisplayImageOptions options;
 
     public ImageAdapter(Context context, ArrayList<FoodItem> foodItems){
         this.context = context;
         this.foodItems = foodItems;
-        System.out.println();
+        options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                .cacheOnDisk(true).resetViewBeforeLoading(true)
+                .showImageForEmptyUri(R.drawable.pizza)
+                .showImageOnFail(R.drawable.pizza)
+                .showImageOnLoading(R.drawable.pizza).build();
     }
 
     @Override
@@ -57,9 +64,10 @@ public class ImageAdapter extends BaseAdapter {
 
             TextView itemDescription = (TextView)gridView.findViewById(R.id.item_desc);
             itemDescription.setText(foodItems.get(i).getDescription());
-            ImageView imageView = (ImageView) gridView
-                    .findViewById(R.id.item_thumbnail);
-            imageView.setImageResource(R.drawable.pizza);// TODO: 5/5/17 Change this to fetch data from the server
+
+            ImageView imageView = (ImageView) gridView.findViewById(R.id.item_thumbnail);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.displayImage(foodItems.get(i).getImage(), imageView, options);
 
         } else {
             gridView = view;

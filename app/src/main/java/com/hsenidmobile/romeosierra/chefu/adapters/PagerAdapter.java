@@ -20,15 +20,15 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.tabFragment = null;
         switch (position) {
             case 0:
-                this.tabFragment = new TabFragment().setContent("Favourites goes here");
+                this.tabFragment = new TabFragment().setContent(new String[]{"Pizza 1", "Pizza 2", "Pizza 3", "Pizza 4", "Pizza 5"});
                 break;
 
             case 1:
-                this.tabFragment = new TabFragment().setContent("Popular goes here");
+                this.tabFragment = new TabFragment().setContent(new String[]{"Pizza 2", "Pizza 3", "Pizza 4", "Pizza 5"});
                 break;
 
             case 2:
-                this.tabFragment = new TabFragment().setContent("Recent goes here");
+                this.tabFragment = new TabFragment().setContent(new String[]{"Pizza 1", "Pizza 2"});
                 break;
         }
         return this.tabFragment;

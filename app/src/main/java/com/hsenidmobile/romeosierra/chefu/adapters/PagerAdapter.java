@@ -20,15 +20,15 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.tabFragment = null;
         switch (position) {
             case 0:
-                this.tabFragment = new TabFragment().setContent(new String[]{"Pizza 1", "Pizza 2", "Pizza 3", "Pizza 4", "Pizza 5"});
+                this.tabFragment = new TabFragment().setContent("http://demo7836701.mockable.io/food/favorite");
                 break;
 
             case 1:
-                this.tabFragment = new TabFragment().setContent(new String[]{"Pizza 2", "Pizza 3", "Pizza 4", "Pizza 5"});
+                this.tabFragment = new TabFragment().setContent("http://demo7836701.mockable.io/food/popular");
                 break;
 
             case 2:
-                this.tabFragment = new TabFragment().setContent(new String[]{"Pizza 1", "Pizza 2"});
+                this.tabFragment = new TabFragment().setContent("http://demo7836701.mockable.io/food/recents");
                 break;
         }
         return this.tabFragment;

@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hsenidmobile.romeosierra.chefu.R;
+import com.hsenidmobile.romeosierra.chefu.model.FoodItem;
+
+import java.util.ArrayList;
 
 /**
  * Created by kanchana on 5/3/17.
@@ -16,9 +19,9 @@ import com.hsenidmobile.romeosierra.chefu.R;
 
 public class ImageAdapter extends BaseAdapter {
     private Context context;
-    private String[] foodItems; // TODO: 5/3/17 replace with the result of data fetching from API
+    private ArrayList<FoodItem> foodItems; // TODO: 5/3/17 replace with the result of data fetching from API
 
-    public ImageAdapter(Context context, String[] foodItems){
+    public ImageAdapter(Context context, ArrayList<FoodItem> foodItems){
         this.context = context;
         this.foodItems = foodItems;
         System.out.println();
@@ -26,17 +29,17 @@ public class ImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return foodItems.length;
+        return foodItems.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return foodItems.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return 0;
+        return i;
     }
 
     @Override
@@ -46,24 +49,14 @@ public class ImageAdapter extends BaseAdapter {
         View gridView;
 
         if (view == null) {
-
             gridView = new View(context);
-
-            // get layout from mobile.xml
             gridView = layoutInflater.inflate(R.layout.grid_view_item, null);
-
-            // set value into textview
             TextView textView = (TextView) gridView
                     .findViewById(R.id.grid_item_label);
-            textView.setText(foodItems[i]);
-
-            // set image based on selected text
+            textView.setText(foodItems.get(i).getName());
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_item_image);
-
-            String mobile = foodItems[i];
-
-            imageView.setImageResource(R.drawable.pizza);
+            imageView.setImageResource(R.drawable.pizza);// TODO: 5/5/17 Change this to fetch data from the server
 
         } else {
             gridView = view;

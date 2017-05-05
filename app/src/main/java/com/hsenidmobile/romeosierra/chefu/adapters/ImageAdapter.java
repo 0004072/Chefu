@@ -51,11 +51,14 @@ public class ImageAdapter extends BaseAdapter {
         if (view == null) {
             gridView = new View(context);
             gridView = layoutInflater.inflate(R.layout.grid_view_item, null);
-            TextView textView = (TextView) gridView
-                    .findViewById(R.id.grid_item_label);
-            textView.setText(foodItems.get(i).getName());
+            TextView itemName = (TextView) gridView
+                    .findViewById(R.id.item_name);
+            itemName.setText(foodItems.get(i).getName());
+
+            TextView itemDescription = (TextView)gridView.findViewById(R.id.item_desc);
+            itemDescription.setText(foodItems.get(i).getDescription());
             ImageView imageView = (ImageView) gridView
-                    .findViewById(R.id.grid_item_image);
+                    .findViewById(R.id.item_thumbnail);
             imageView.setImageResource(R.drawable.pizza);// TODO: 5/5/17 Change this to fetch data from the server
 
         } else {

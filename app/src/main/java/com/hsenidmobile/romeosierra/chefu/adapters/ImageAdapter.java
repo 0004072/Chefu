@@ -59,13 +59,13 @@ public class ImageAdapter extends BaseAdapter {
             foodItemView = new View(context);
             foodItemView = layoutInflater.inflate(R.layout.grid_view_item, null);
             TextView itemName = (TextView) foodItemView
-                    .findViewById(R.id.item_name);
+                    .findViewById(R.id.txt_item_name);
             itemName.setText(foodItems.get(i).getName());
 
             TextView itemDescription = (TextView)foodItemView.findViewById(R.id.item_desc);
             itemDescription.setText(foodItems.get(i).getDescription());
 
-            ImageView imageView = (ImageView) foodItemView.findViewById(R.id.item_thumbnail);
+            ImageView imageView = (ImageView) foodItemView.findViewById(R.id.img_item_thumbnail);
             ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.displayImage(foodItems.get(i).getImage(), imageView, options);
 

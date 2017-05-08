@@ -19,7 +19,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/item_thumbnail"
+                android:id="@+id/img_item_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/album_cover_height"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -27,10 +27,10 @@
                 android:scaleType="fitXY" />
 
             <TextView
-                android:id="@+id/item_name"
+                android:id="@+id/txt_item_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_thumbnail"
+                android:layout_below="@id/img_item_thumbnail"
                 android:paddingLeft="@dimen/item_title_padding"
                 android:paddingRight="@dimen/item_title_padding"
                 android:paddingTop="@dimen/item_title_padding"
@@ -41,7 +41,7 @@
                 android:id="@+id/item_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_name"
+                android:layout_below="@id/txt_item_name"
                 android:paddingBottom="@dimen/desc_padding_bottom"
                 android:paddingLeft="@dimen/item_title_padding"
                 android:paddingRight="@dimen/item_title_padding"
@@ -52,7 +52,7 @@
                 android:layout_width="@dimen/ic_image_overflow_width"
                 android:layout_height="@dimen/ic_image_overflow_height"
                 android:layout_alignParentRight="true"
-                android:layout_below="@id/item_thumbnail"
+                android:layout_below="@id/img_item_thumbnail"
                 android:layout_marginTop="@dimen/ic_image_overflow_margin_top"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_dots" />

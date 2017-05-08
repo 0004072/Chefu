@@ -53,26 +53,26 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View gridView;
+        View foodItemView;
 
         if (view == null) {
-            gridView = new View(context);
-            gridView = layoutInflater.inflate(R.layout.grid_view_item, null);
-            TextView itemName = (TextView) gridView
+            foodItemView = new View(context);
+            foodItemView = layoutInflater.inflate(R.layout.grid_view_item, null);
+            TextView itemName = (TextView) foodItemView
                     .findViewById(R.id.item_name);
             itemName.setText(foodItems.get(i).getName());
 
-            TextView itemDescription = (TextView)gridView.findViewById(R.id.item_desc);
+            TextView itemDescription = (TextView)foodItemView.findViewById(R.id.item_desc);
             itemDescription.setText(foodItems.get(i).getDescription());
 
-            ImageView imageView = (ImageView) gridView.findViewById(R.id.item_thumbnail);
+            ImageView imageView = (ImageView) foodItemView.findViewById(R.id.item_thumbnail);
             ImageLoader imageLoader = ImageLoader.getInstance();
             imageLoader.displayImage(foodItems.get(i).getImage(), imageView, options);
 
         } else {
-            gridView = view;
+            foodItemView = view;
         }
 
-        return gridView;
+        return foodItemView;
     }
 }

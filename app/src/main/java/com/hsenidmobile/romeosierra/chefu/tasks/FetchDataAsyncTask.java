@@ -2,10 +2,15 @@ package com.hsenidmobile.romeosierra.chefu.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.hsenidmobile.romeosierra.chefu.MainActivity;
+import com.hsenidmobile.romeosierra.chefu.ShowItemActivity;
 import com.hsenidmobile.romeosierra.chefu.adapters.ImageAdapter;
 import com.hsenidmobile.romeosierra.chefu.model.Food;
 import com.hsenidmobile.romeosierra.chefu.model.FoodItem;
@@ -23,6 +28,7 @@ public class FetchDataAsyncTask extends AsyncTask<Object, Object, ArrayList<Food
     private Context context;
     private GridView gridView;
     private String url;
+    public static final String FOOD_ITEM_OBJECT = "selectedFoodItem";
 
     public FetchDataAsyncTask(Context context, GridView gridView, String url) {
         this.context = context;
@@ -58,5 +64,15 @@ public class FetchDataAsyncTask extends AsyncTask<Object, Object, ArrayList<Food
 
         ImageAdapter ia = new ImageAdapter(context, result);
         gridView.setAdapter(ia);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FoodItem item = (FoodItem) adapterView.getItemAtPosition(i);
+                Intent intent = new Intent(context, ShowItemActivity.class);
+                intent.putExtra(FOOD_ITEM_OBJECT, item);
+                context.startActivity(intent);
+            }
+        });
     }
 }

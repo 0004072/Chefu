@@ -1,8 +1,12 @@
 package com.hsenidmobile.romeosierra.chefu;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.view.MotionEvent;
@@ -27,6 +31,8 @@ public class ShowItemActivity extends AppCompatActivity {
         cart = new Cart();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_item);
+
+        initToolBar();
 
         //Image loader configuration
         ImageLoader imageLoader = ImageLoader.getInstance();
@@ -75,5 +81,29 @@ public class ShowItemActivity extends AppCompatActivity {
         totalSpan.append(String.format(getResources().getConfiguration().locale, "%.2f", cart.getTotal()));
         TextView textView = (TextView)findViewById(R.id.txt_total);
         textView.setText(totalSpan);
+    }
+
+    public void initToolBar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_show_item_activity);
+        setSupportActionBar(toolbar);
+        Bitmap bmp_toolbar_arr = BitmapFactory.decodeResource(getResources(), R.drawable.ic_toolbar_arrow);
+        int newWidth = bmp_toolbar_arr.getWidth() * 4, newHeight = bmp_toolbar_arr.getHeight() * 4;
+        Bitmap bmp_toolbar_arr_resize = Bitmap.createScaledBitmap(bmp_toolbar_arr, newWidth, newHeight, true);
+        toolbar.setNavigationIcon(new BitmapDrawable(getResources(), bmp_toolbar_arr_resize));
+        toolbar.setNavigationOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                        overridePendingTransition(R.anim.left_in, R.anim.right_out);
+                    }
+                }
+        );
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
     }
 }

@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.hsenidmobile.romeosierra.chefu.MainActivity;
+import com.hsenidmobile.romeosierra.chefu.R;
 import com.hsenidmobile.romeosierra.chefu.ShowItemActivity;
 import com.hsenidmobile.romeosierra.chefu.adapters.FoodItemCardAdapter;
 import com.hsenidmobile.romeosierra.chefu.model.Food;
@@ -22,7 +24,7 @@ import java.util.Locale;
  * Created by kanchana on 5/2/17.
  */
 
-public class FetchFoodItemsAsyncTask extends AsyncTask<Object, Object, ArrayList<FoodItem>> {
+public class FetchFoodItemsAsyncTask extends AsyncTask<Object, Object, Object> {
     private ProgressDialog progressDialog;
     private Context context;
     private GridView gridView;
@@ -36,16 +38,10 @@ public class FetchFoodItemsAsyncTask extends AsyncTask<Object, Object, ArrayList
     }
 
     @Override
-    protected ArrayList<FoodItem> doInBackground(Object ... params) {
-        ArrayList<FoodItem> response = new ArrayList<>();
+    protected Object doInBackground(Object ... params) {
         FoodItemFetchClient req = new FoodItemFetchClient();
-        Object obj = req.fetchData(url);
-
-        if(obj instanceof Food) {
-            Food food = (Food)obj;
-            response = food.getFood();
-        }
-        return response;
+        Object obj = req.fetchData(url, context);
+        return obj;
     }
 
     @Override
@@ -54,24 +50,31 @@ public class FetchFoodItemsAsyncTask extends AsyncTask<Object, Object, ArrayList
     }
 
     @Override
-    protected void onPostExecute(ArrayList<FoodItem> result){
+    protected void onPostExecute(Object result){
         String message = "Failed to fetch data. Unknown Error!";
-        if(result.size() > 0)
-            message = String.format(Locale.US, "Successfully fetched %d items!", result.size());
+        if (result instanceof Food) {
+            ArrayList<FoodItem> foodItems = ((Food)result).getFood();
+            if(foodItems.size() > 0)
+                message = String.format(Locale.US, "Successfully fetched %d items!", foodItems.size());
+
+            FoodItemCardAdapter ia = new FoodItemCardAdapter(context, foodItems);
+            gridView.setAdapter(ia);
+
+            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    FoodItem item = (FoodItem) adapterView.getItemAtPosition(i);
+                    Intent intent = new Intent(context, ShowItemActivity.class);
+                    intent.putExtra(FOOD_ITEM_OBJECT, item);
+                    context.startActivity(intent);
+                    ((MainActivity)context).overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                }
+            });
+        } else if(result instanceof String) {
+            message = (String)result;
+        }
         progressDialog.dismiss();
-        Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
-        FoodItemCardAdapter ia = new FoodItemCardAdapter(context, result);
-        gridView.setAdapter(ia);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FoodItem item = (FoodItem) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(context, ShowItemActivity.class);
-                intent.putExtra(FOOD_ITEM_OBJECT, item);
-                context.startActivity(intent);
-            }
-        });
+        Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
+
 }

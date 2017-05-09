@@ -8,8 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import com.hsenidmobile.romeosierra.chefu.R;
-import com.hsenidmobile.romeosierra.chefu.tasks.FetchDataAsyncTask;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.hsenidmobile.romeosierra.chefu.tasks.FetchFoodItemsAsyncTask;
 
 /**
  * Created by kanchana on 5/3/17.
@@ -32,7 +31,7 @@ public class TabFragment extends Fragment {
         View view =  inflater.inflate(R.layout.tab_fragment, container, false);
         GridView gridView = (GridView)view.findViewById(R.id.gridView1);
         Context context = view.getContext();
-        FetchDataAsyncTask fda = new FetchDataAsyncTask(context, gridView, this.url);
+        FetchFoodItemsAsyncTask fda = new FetchFoodItemsAsyncTask(context, gridView, this.url);
         fda.execute();
         return view;
     }

@@ -9,12 +9,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.hsenidmobile.romeosierra.chefu.MainActivity;
 import com.hsenidmobile.romeosierra.chefu.ShowItemActivity;
-import com.hsenidmobile.romeosierra.chefu.adapters.ImageAdapter;
+import com.hsenidmobile.romeosierra.chefu.adapters.FoodItemCardAdapter;
 import com.hsenidmobile.romeosierra.chefu.model.Food;
 import com.hsenidmobile.romeosierra.chefu.model.FoodItem;
-import com.hsenidmobile.romeosierra.chefu.utils.DataFetchClient;
+import com.hsenidmobile.romeosierra.chefu.utils.FoodItemFetchClient;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -23,14 +22,14 @@ import java.util.Locale;
  * Created by kanchana on 5/2/17.
  */
 
-public class FetchDataAsyncTask extends AsyncTask<Object, Object, ArrayList<FoodItem>> {
+public class FetchFoodItemsAsyncTask extends AsyncTask<Object, Object, ArrayList<FoodItem>> {
     private ProgressDialog progressDialog;
     private Context context;
     private GridView gridView;
     private String url;
     public static final String FOOD_ITEM_OBJECT = "selectedFoodItem";
 
-    public FetchDataAsyncTask(Context context, GridView gridView, String url) {
+    public FetchFoodItemsAsyncTask(Context context, GridView gridView, String url) {
         this.context = context;
         this.gridView = gridView;
         this.url = url;
@@ -39,7 +38,7 @@ public class FetchDataAsyncTask extends AsyncTask<Object, Object, ArrayList<Food
     @Override
     protected ArrayList<FoodItem> doInBackground(Object ... params) {
         ArrayList<FoodItem> response = new ArrayList<>();
-        DataFetchClient req = new DataFetchClient();
+        FoodItemFetchClient req = new FoodItemFetchClient();
         Object obj = req.fetchData(url);
 
         if(obj instanceof Food) {
@@ -62,7 +61,7 @@ public class FetchDataAsyncTask extends AsyncTask<Object, Object, ArrayList<Food
         progressDialog.dismiss();
         Toast.makeText(context.getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
-        ImageAdapter ia = new ImageAdapter(context, result);
+        FoodItemCardAdapter ia = new FoodItemCardAdapter(context, result);
         gridView.setAdapter(ia);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

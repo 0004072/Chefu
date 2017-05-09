@@ -12,9 +12,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hsenidmobile.romeosierra.chefu.adapters.ExtraListAdapter;
+import com.hsenidmobile.romeosierra.chefu.config.ImageLoaderConfig;
 import com.hsenidmobile.romeosierra.chefu.model.Cart;
 import com.hsenidmobile.romeosierra.chefu.model.FoodItem;
-import com.hsenidmobile.romeosierra.chefu.tasks.FetchDataAsyncTask;
+import com.hsenidmobile.romeosierra.chefu.tasks.FetchFoodItemsAsyncTask;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -29,11 +30,7 @@ public class ShowItemActivity extends AppCompatActivity {
 
         //Image loader configuration
         ImageLoader imageLoader = ImageLoader.getInstance();
-        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisk(true).resetViewBeforeLoading(true)
-                .showImageForEmptyUri(R.drawable.pizza)
-                .showImageOnFail(R.drawable.pizza)
-                .showImageOnLoading(R.drawable.pizza).build();
+        DisplayImageOptions options = ImageLoaderConfig.getOptions();
 
         //View extraction
         Intent intent = getIntent();
@@ -44,7 +41,7 @@ public class ShowItemActivity extends AppCompatActivity {
         ListView extra_list = (ListView)findViewById(R.id.extra_list);
 
         //Data population
-        final FoodItem foodItem = intent.getParcelableExtra(FetchDataAsyncTask.FOOD_ITEM_OBJECT);
+        final FoodItem foodItem = intent.getParcelableExtra(FetchFoodItemsAsyncTask.FOOD_ITEM_OBJECT);
         txt_item_name.setText(foodItem.getName());
         SpannableStringBuilder desc = new SpannableStringBuilder(txt_item_desc.getText());
         desc.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, desc.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

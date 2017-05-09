@@ -1,12 +1,11 @@
 package com.hsenidmobile.romeosierra.chefu.model;
 
-import java.util.Map;
-
 /**
  * Created by kanchana on 5/8/17.
  */
 
 public class Cart {
+    // TODO: 5/9/17 Incorporate the complete shopping cart functionality. This is just a mock, only for the purpose of tracking the total.
     private double total;
 
     public double getTotal() {

@@ -16,7 +16,7 @@ import java.net.URL;
  * Created by kanchana on 4/28/17.
  */
 
-public class DataFetchClient {
+public class FoodItemFetchClient {
     private URL url;
     private HttpURLConnection con;
     private Gson gson;

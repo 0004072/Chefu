@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hsenidmobile.romeosierra.chefu.R;
+import com.hsenidmobile.romeosierra.chefu.config.ImageLoaderConfig;
 import com.hsenidmobile.romeosierra.chefu.model.FoodItem;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,19 +20,15 @@ import java.util.ArrayList;
  * Created by kanchana on 5/3/17.
  */
 
-public class ImageAdapter extends BaseAdapter {
+public class FoodItemCardAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<FoodItem> foodItems;
     private DisplayImageOptions options;
 
-    public ImageAdapter(Context context, ArrayList<FoodItem> foodItems){
+    public FoodItemCardAdapter(Context context, ArrayList<FoodItem> foodItems){
         this.context = context;
         this.foodItems = foodItems;
-        options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                .cacheOnDisk(true).resetViewBeforeLoading(true)
-                .showImageForEmptyUri(R.drawable.pizza)
-                .showImageOnFail(R.drawable.pizza)
-                .showImageOnLoading(R.drawable.pizza).build();
+        options = ImageLoaderConfig.getOptions();
     }
 
     @Override
@@ -53,26 +50,20 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View foodItemView;
-
         if (view == null) {
-            foodItemView = new View(context);
-            foodItemView = layoutInflater.inflate(R.layout.grid_view_item, null);
-            TextView itemName = (TextView) foodItemView
+            //view = new View(context);
+            view = layoutInflater.inflate(R.layout.grid_view_item, null);
+            TextView txt_itemName = (TextView) view
                     .findViewById(R.id.txt_item_name);
-            itemName.setText(foodItems.get(i).getName());
+            txt_itemName.setText(foodItems.get(i).getName());
 
-            TextView itemDescription = (TextView)foodItemView.findViewById(R.id.item_desc);
-            itemDescription.setText(foodItems.get(i).getDescription());
+            TextView txt_ItemDesc = (TextView)view.findViewById(R.id.item_desc);
+            txt_ItemDesc.setText(foodItems.get(i).getDescription());
 
-            ImageView imageView = (ImageView) foodItemView.findViewById(R.id.img_item_thumbnail);
+            ImageView img_ItemThumbnail = (ImageView) view.findViewById(R.id.img_item_thumbnail);
             ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.displayImage(foodItems.get(i).getImage(), imageView, options);
-
-        } else {
-            foodItemView = view;
+            imageLoader.displayImage(foodItems.get(i).getImage(), img_ItemThumbnail, options);
         }
-
-        return foodItemView;
+        return view;
     }
 }
